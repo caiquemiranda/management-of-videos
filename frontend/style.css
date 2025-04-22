@@ -4,34 +4,40 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .container {
     max-width: 500px;
     margin: 40px auto;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     padding: 32px 24px;
 }
+
 h1 {
     text-align: center;
     color: #333;
     margin-bottom: 32px;
 }
+
 .card {
     background: #fafafa;
     border-radius: 8px;
     padding: 24px 16px;
     margin-bottom: 24px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
+
 h2 {
     margin-top: 0;
     color: #1976d2;
     font-size: 1.2em;
 }
+
 input[type="file"] {
     margin-bottom: 12px;
 }
+
 button {
     background: #1976d2;
     color: #fff;
@@ -42,47 +48,57 @@ button {
     cursor: pointer;
     transition: background 0.2s;
 }
+
 button:hover {
     background: #125ea7;
 }
+
 .status {
     margin-top: 10px;
     min-height: 20px;
     color: #444;
     font-size: 0.98em;
 }
+
 @media (max-width: 600px) {
     .container {
         padding: 12px 4px;
     }
+
     .card {
         padding: 16px 4px;
     }
 }
+
 .cortes-lista {
     margin-top: 18px;
     padding: 10px 0 0 0;
     border-top: 1px solid #eee;
 }
+
 .cortes-lista ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 .cortes-lista li {
     margin-bottom: 8px;
     display: flex;
     align-items: center;
 }
+
 .cortes-lista a {
     color: #1976d2;
     text-decoration: none;
     margin-right: 10px;
     font-weight: 500;
 }
+
 .cortes-lista a:hover {
     text-decoration: underline;
 }
+
 .info-video {
     margin: 12px 0 8px 0;
     background: #e3f2fd;
@@ -92,13 +108,52 @@ button:hover {
     font-size: 1em;
     display: block;
 }
+
 #btn-confirmar-corte {
     background: #43a047;
     margin-right: 10px;
 }
+
 #btn-confirmar-corte:hover {
     background: #2e7031;
 }
+
 #btn-enviar-corte {
     background: #1976d2;
-} 
+}
+
+.progress-bar {
+    width: 100%;
+    height: 18px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    margin: 10px 0 10px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #1976d2 60%, #43a047 100%);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.arquivos-compilar-lista {
+    margin-top: 12px;
+    background: #f1f8e9;
+    border-radius: 5px;
+    padding: 10px 14px;
+    color: #33691e;
+    font-size: 1em;
+}
+
+.arquivos-compilar-lista ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.arquivos-compilar-lista li {
+    margin-bottom: 6px;
+}

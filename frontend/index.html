@@ -19,12 +19,24 @@
                 <button type="button" id="btn-confirmar-corte" style="display:none;">Confirmar corte</button>
                 <button type="submit" id="btn-enviar-corte" style="display:none;">Enviar e Cortar</button>
             </form>
+            <div id="progress-corte" class="progress-bar" style="display:none;"></div>
             <div id="status-corte" class="status"></div>
             <div id="cortes-lista" class="cortes-lista"></div>
         </section>
         <section class="card">
-            <h2>Compilar Vídeos Cortados</h2>
+            <h2>Enviar Vídeos para Compilar</h2>
+            <form id="form-upload-compilar" enctype="multipart/form-data">
+                <input type="file" id="videos-compilar" accept="video/*" multiple required>
+                <button type="submit">Enviar vídeos</button>
+            </form>
+            <div id="progress-upload-compilar" class="progress-bar" style="display:none;"></div>
+            <div id="status-upload-compilar" class="status"></div>
+            <div id="arquivos-compilar-lista" class="arquivos-compilar-lista"></div>
+        </section>
+        <section class="card">
+            <h2>Compilar Vídeos Enviados</h2>
             <button id="btn-compilar">Compilar</button>
+            <div id="progress-compilar" class="progress-bar" style="display:none;"></div>
             <div id="status-compilar" class="status"></div>
         </section>
     </div>
