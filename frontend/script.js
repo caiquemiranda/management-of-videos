@@ -196,6 +196,7 @@ btnCompilar.addEventListener('click', async function () {
         statusCompilar.style.color = data.success ? '#1976d2' : '#c00';
         if (data.success) {
             atualizarListaCompilar();
+            checarVideoFinal();
         }
     } catch (err) {
         clearInterval(interval);
@@ -227,6 +228,23 @@ async function atualizarListaCortes() {
     }
 }
 
+const btnBaixarFinal = document.getElementById('btn-baixar-final');
+
+async function checarVideoFinal() {
+    try {
+        const resp = await fetch('/download_final', { method: 'HEAD' });
+        if (resp.ok) {
+            btnBaixarFinal.style.display = 'inline-block';
+            btnBaixarFinal.href = '/download_final';
+        } else {
+            btnBaixarFinal.style.display = 'none';
+        }
+    } catch {
+        btnBaixarFinal.style.display = 'none';
+    }
+}
+
 // Atualiza listas ao carregar a página
 atualizarListaCortes();
-atualizarListaCompilar(); 
+atualizarListaCompilar();
+checarVideoFinal(); 

@@ -146,5 +146,13 @@ def excluir_compilar(filename):
     else:
         return jsonify({'success': False, 'message': 'Arquivo não encontrado.'}), 404
 
+@app.route('/download_final', methods=['GET'])
+def download_final():
+    caminho = os.path.join('videoFinal', 'video_completo.mp4')
+    if os.path.exists(caminho):
+        return send_from_directory('videoFinal', 'video_completo.mp4', as_attachment=True)
+    else:
+        return jsonify({'success': False, 'message': 'Vídeo final não encontrado.'}), 404
+
 if __name__ == '__main__':
     app.run(debug=True) 

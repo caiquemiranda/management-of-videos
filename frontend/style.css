@@ -157,3 +157,19 @@ button:hover {
 .arquivos-compilar-lista li {
     margin-bottom: 6px;
 }
+
+.btn-baixar-final {
+    display: inline-block;
+    margin-top: 12px;
+    background: #388e3c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-baixar-final:hover {
+    background: #256029;
+}
