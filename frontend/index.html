@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Vídeos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciador de Vídeos</h1>
+        <section class="card">
+            <h2>Cortar Vídeo</h2>
+            <form id="form-corte" enctype="multipart/form-data">
+                <input type="file" id="video-corte" accept="video/*" required>
+                <button type="submit">Enviar e Cortar</button>
+            </form>
+            <div id="status-corte" class="status"></div>
+        </section>
+        <section class="card">
+            <h2>Compilar Vídeos Cortados</h2>
+            <button id="btn-compilar">Compilar</button>
+            <div id="status-compilar" class="status"></div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
