@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = 'videoAntes'
 CORTES_FOLDER = 'videosCortes'
+PRONTOS_COMPILAR_FOLDER = 'prontosCompilar'
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -16,6 +17,8 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 if not os.path.exists(CORTES_FOLDER):
     os.makedirs(CORTES_FOLDER)
+if not os.path.exists(PRONTOS_COMPILAR_FOLDER):
+    os.makedirs(PRONTOS_COMPILAR_FOLDER)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -29,13 +32,15 @@ def info_video():
         return jsonify({'success': False, 'message': 'Nome de arquivo vazio.'}), 400
     if file and allowed_file(file.filename):
         try:
-            with tempfile.NamedTemporaryFile(delete=True, suffix='.mp4') as temp:
-                file.save(temp.name)
-                clip = VideoFileClip(temp.name)
-                duracao = clip.duration
-                duracao_parte = 14.5
-                num_partes = int(-(-duracao // duracao_parte))  # ceil
-                clip.close()
+            temp = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+            temp.close()
+            file.save(temp.name)
+            clip = VideoFileClip(temp.name)
+            duracao = clip.duration
+            duracao_parte = 14.5
+            num_partes = int(-(-duracao // duracao_parte))  # ceil
+            clip.close()
+            os.remove(temp.name)
             return jsonify({
                 'success': True,
                 'duracao': duracao,
@@ -101,6 +106,31 @@ def compilar_videos():
             return jsonify({'success': True, 'message': 'Vídeo final compilado com sucesso!'}), 200
         else:
             return jsonify({'success': False, 'message': result.stderr or result.stdout}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/upload_compilar', methods=['POST'])
+def upload_compilar():
+    if 'files' not in request.files:
+        return jsonify({'success': False, 'message': 'Nenhum arquivo enviado.'}), 400
+    files = request.files.getlist('files')
+    if not files:
+        return jsonify({'success': False, 'message': 'Nenhum arquivo selecionado.'}), 400
+    salvos = []
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(PRONTOS_COMPILAR_FOLDER, filename)
+            file.save(filepath)
+            salvos.append(filename)
+    return jsonify({'success': True, 'arquivos': salvos}), 200
+
+@app.route('/arquivos_compilar', methods=['GET'])
+def arquivos_compilar():
+    try:
+        arquivos = [f for f in os.listdir(PRONTOS_COMPILAR_FOLDER) if f.endswith('.mp4')]
+        arquivos.sort()
+        return jsonify({'success': True, 'arquivos': arquivos}), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
