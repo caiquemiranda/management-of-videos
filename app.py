@@ -134,5 +134,17 @@ def arquivos_compilar():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+@app.route('/excluir_compilar/<filename>', methods=['DELETE'])
+def excluir_compilar(filename):
+    caminho = os.path.join(PRONTOS_COMPILAR_FOLDER, filename)
+    if os.path.exists(caminho):
+        try:
+            os.remove(caminho)
+            return jsonify({'success': True, 'message': f'{filename} removido com sucesso.'}), 200
+        except Exception as e:
+            return jsonify({'success': False, 'message': str(e)}), 500
+    else:
+        return jsonify({'success': False, 'message': 'Arquivo não encontrado.'}), 404
+
 if __name__ == '__main__':
     app.run(debug=True) 

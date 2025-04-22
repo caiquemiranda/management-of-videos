@@ -141,10 +141,25 @@ async function atualizarListaCompilar() {
         if (data.success && data.arquivos.length > 0) {
             let html = '<b>Vídeos enviados para compilar:</b><ul>';
             data.arquivos.forEach(nome => {
-                html += `<li>${nome}</li>`;
+                html += `<li>${nome} <button class='btn-excluir' data-nome='${nome}'>Excluir</button></li>`;
             });
             html += '</ul>';
             listaCompilar.innerHTML = html;
+            // Adiciona evento aos botões de exclusão
+            document.querySelectorAll('.btn-excluir').forEach(btn => {
+                btn.addEventListener('click', async function () {
+                    const nome = this.getAttribute('data-nome');
+                    if (confirm(`Deseja realmente excluir o vídeo "${nome}"?`)) {
+                        const resp = await fetch(`/excluir_compilar/${encodeURIComponent(nome)}`, { method: 'DELETE' });
+                        const res = await resp.json();
+                        if (res.success) {
+                            atualizarListaCompilar();
+                        } else {
+                            alert(res.message || 'Erro ao excluir.');
+                        }
+                    }
+                });
+            });
         } else {
             listaCompilar.innerHTML = '<em>Nenhum vídeo enviado para compilação.</em>';
         }
