@@ -6,11 +6,14 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'videoAntes'
+CORTES_FOLDER = 'videosCortes'
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+if not os.path.exists(CORTES_FOLDER):
+    os.makedirs(CORTES_FOLDER)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -48,6 +51,19 @@ def cortar_video():
             return jsonify({'success': False, 'message': str(e)}), 500
     else:
         return jsonify({'success': False, 'message': 'Tipo de arquivo não permitido.'}), 400
+
+@app.route('/cortes', methods=['GET'])
+def listar_cortes():
+    try:
+        arquivos = [f for f in os.listdir(CORTES_FOLDER) if f.endswith('.mp4')]
+        arquivos.sort()
+        return jsonify({'success': True, 'cortes': arquivos}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/download/<filename>', methods=['GET'])
+def download_corte(filename):
+    return send_from_directory(CORTES_FOLDER, filename, as_attachment=True)
 
 @app.route('/compilar', methods=['POST'])
 def compilar_videos():

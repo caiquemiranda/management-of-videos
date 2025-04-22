@@ -58,4 +58,28 @@ button:hover {
     .card {
         padding: 16px 4px;
     }
+}
+.cortes-lista {
+    margin-top: 18px;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #eee;
+}
+.cortes-lista ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.cortes-lista li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+.cortes-lista a {
+    color: #1976d2;
+    text-decoration: none;
+    margin-right: 10px;
+    font-weight: 500;
+}
+.cortes-lista a:hover {
+    text-decoration: underline;
 } 

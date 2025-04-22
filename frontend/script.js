@@ -1,3 +1,24 @@
+async function atualizarListaCortes() {
+    const listaDiv = document.getElementById('cortes-lista');
+    listaDiv.innerHTML = '';
+    try {
+        const resp = await fetch('/cortes');
+        const data = await resp.json();
+        if (data.success && data.cortes.length > 0) {
+            let html = '<h3>Cortes disponíveis:</h3><ul>';
+            data.cortes.forEach(nome => {
+                html += `<li><a href="/download/${nome}" target="_blank">${nome}</a></li>`;
+            });
+            html += '</ul>';
+            listaDiv.innerHTML = html;
+        } else {
+            listaDiv.innerHTML = '<em>Nenhum corte disponível.</em>';
+        }
+    } catch (err) {
+        listaDiv.innerHTML = '<em>Erro ao buscar cortes.</em>';
+    }
+}
+
 document.getElementById('form-corte').addEventListener('submit', async function (e) {
     e.preventDefault();
     const status = document.getElementById('status-corte');
@@ -19,6 +40,9 @@ document.getElementById('form-corte').addEventListener('submit', async function 
         const data = await response.json();
         status.textContent = data.message;
         status.style.color = data.success ? '#1976d2' : '#c00';
+        if (data.success) {
+            atualizarListaCortes();
+        }
     } catch (err) {
         status.textContent = 'Erro ao enviar vídeo.';
         status.style.color = '#c00';
@@ -40,4 +64,7 @@ document.getElementById('btn-compilar').addEventListener('click', async function
         status.textContent = 'Erro ao compilar vídeos.';
         status.style.color = '#c00';
     }
-}); 
+});
+
+// Atualiza a lista ao carregar a página
+atualizarListaCortes(); 

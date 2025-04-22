@@ -24,12 +24,6 @@ print(f"- Duração total: {duracao_total:.2f} segundos")
 print(f"- Tamanho de cada parte: {duracao_parte:.1f} segundos")
 print(f"- Número total de cortes a serem feitos: {num_cortes}")
 
-resposta = input("\nDeseja continuar com os cortes? (s/n): ").lower()
-if resposta != 's' and resposta != 'sim':
-    print("Operação cancelada pelo usuário.")
-    video.close()
-    exit()
-
 num_parte = 1
 for inicio in range(0, int(duracao_total), int(duracao_parte)):
     fim = min(inicio + duracao_parte, duracao_total)
