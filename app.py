@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import os
 import subprocess
 from werkzeug.utils import secure_filename
@@ -14,6 +14,14 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/')
+def index():
+    return send_from_directory('frontend', 'index.html')
+
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('frontend', filename)
 
 @app.route('/cortar', methods=['POST'])
 def cortar_video():
