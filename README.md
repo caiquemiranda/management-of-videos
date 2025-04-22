@@ -1,11 +1,11 @@
 # Scripts para Processamento de Vídeos
 
-Este projeto contém dois scripts Python para processamento de vídeos:
+Este projeto contém dois scripts Python para processamento de vídeos e uma interface web integrada com backend Flask.
 
 ## 1. cortar_video.py
 Script para cortar um vídeo em partes de 14,5 segundos.
 
-### Como usar:
+### Como usar manualmente:
 1. Coloque o vídeo que deseja cortar na pasta `videoAntes`.
 2. Execute o script:
    ```
@@ -16,7 +16,7 @@ Script para cortar um vídeo em partes de 14,5 segundos.
 ## 2. compilar_videos.py
 Script para juntar vários vídeos editados em um único vídeo final.
 
-### Como usar:
+### Como usar manualmente:
 1. Coloque os vídeos editados na pasta `prontosCompilar`.
 2. Execute o script:
    ```
@@ -24,19 +24,40 @@ Script para juntar vários vídeos editados em um único vídeo final.
    ```
 3. O vídeo final será salvo na pasta `videoFinal` como `video_completo.mp4`.
 
+---
+
+## 3. Interface Web (Frontend + Backend Flask)
+
+Agora você pode usar uma interface web simples para cortar e compilar vídeos sem precisar rodar scripts manualmente.
+
+### Como usar a interface web:
+
+1. Instale as dependências:
+   ```
+   pip install -r requirements.txt
+   ```
+2. Inicie o backend Flask:
+   ```
+   python app.py
+   ```
+3. Abra o arquivo `frontend/index.html` no navegador.
+   - **Dica:** Para evitar problemas de CORS, você pode servir a pasta `frontend` como estático pelo Flask, se desejar.
+4. Use a interface para enviar um vídeo para corte ou compilar os vídeos já cortados.
+
+---
+
 ## Requisitos
-Para usar estes scripts, você precisa ter instalado:
+- Python 3.6 ou superior
+- As dependências listadas em `requirements.txt`
 
-1. Python 3.6 ou superior
-2. Biblioteca moviepy
-
-Instale a biblioteca necessária com:
+Instale todas as dependências com:
 ```
-pip install moviepy
+pip install -r requirements.txt
 ```
 
 ## Estrutura de pastas
-- `videoAntes/`: Coloque aqui o vídeo original para cortar
+- `videoAntes/`: Coloque aqui o vídeo original para cortar (usado pelo backend)
 - `videosCortes/`: Aqui serão salvos os cortes do vídeo original
 - `prontosCompilar/`: Coloque aqui os vídeos editados prontos para compilar
-- `videoFinal/`: Aqui será salvo o vídeo final compilado 
+- `videoFinal/`: Aqui será salvo o vídeo final compilado
+- `frontend/`: Interface web (HTML, CSS, JS) 
