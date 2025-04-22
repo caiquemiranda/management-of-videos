@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Vídeos</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Gerenciador de Vídeos</h1>
@@ -13,7 +15,9 @@
             <h2>Cortar Vídeo</h2>
             <form id="form-corte" enctype="multipart/form-data">
                 <input type="file" id="video-corte" accept="video/*" required>
-                <button type="submit">Enviar e Cortar</button>
+                <div id="info-video" class="info-video"></div>
+                <button type="button" id="btn-confirmar-corte" style="display:none;">Confirmar corte</button>
+                <button type="submit" id="btn-enviar-corte" style="display:none;">Enviar e Cortar</button>
             </form>
             <div id="status-corte" class="status"></div>
             <div id="cortes-lista" class="cortes-lista"></div>
@@ -26,4 +30,5 @@
     </div>
     <script src="script.js"></script>
 </body>
-</html> 
+
+</html>

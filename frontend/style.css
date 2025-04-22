@@ -82,4 +82,23 @@ button:hover {
 }
 .cortes-lista a:hover {
     text-decoration: underline;
+}
+.info-video {
+    margin: 12px 0 8px 0;
+    background: #e3f2fd;
+    color: #1565c0;
+    border-radius: 5px;
+    padding: 10px 14px;
+    font-size: 1em;
+    display: block;
+}
+#btn-confirmar-corte {
+    background: #43a047;
+    margin-right: 10px;
+}
+#btn-confirmar-corte:hover {
+    background: #2e7031;
+}
+#btn-enviar-corte {
+    background: #1976d2;
 } 

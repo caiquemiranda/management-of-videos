@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 import subprocess
 from werkzeug.utils import secure_filename
+from moviepy.editor import VideoFileClip
+import tempfile
 
 app = Flask(__name__)
 
@@ -17,6 +19,32 @@ if not os.path.exists(CORTES_FOLDER):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/info_video', methods=['POST'])
+def info_video():
+    if 'file' not in request.files:
+        return jsonify({'success': False, 'message': 'Nenhum arquivo enviado.'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'success': False, 'message': 'Nome de arquivo vazio.'}), 400
+    if file and allowed_file(file.filename):
+        try:
+            with tempfile.NamedTemporaryFile(delete=True, suffix='.mp4') as temp:
+                file.save(temp.name)
+                clip = VideoFileClip(temp.name)
+                duracao = clip.duration
+                duracao_parte = 14.5
+                num_partes = int(-(-duracao // duracao_parte))  # ceil
+                clip.close()
+            return jsonify({
+                'success': True,
+                'duracao': duracao,
+                'num_partes': num_partes
+            }), 200
+        except Exception as e:
+            return jsonify({'success': False, 'message': str(e)}), 500
+    else:
+        return jsonify({'success': False, 'message': 'Tipo de arquivo não permitido.'}), 400
 
 @app.route('/')
 def index():
